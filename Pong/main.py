@@ -11,6 +11,7 @@ from turtle import Screen
 from paddle import Paddle
 from ball import Ball
 from score_board import ScoreBoard
+import time
 
 
 screen = Screen()
@@ -18,15 +19,10 @@ screen.setup(width=800, height=600)
 screen.bgcolor("black")
 screen.tracer(0)
 
-
-
-
-
 paddle_1 = Paddle(1)
 paddle_2 = Paddle(2)
 game_ball = Ball()
 score_board = ScoreBoard()
-
 
 screen.listen()
 screen.onkeypress(key='w',fun=paddle_1.player_move_up)
@@ -38,9 +34,13 @@ screen.onkeypress(key='Down',fun=paddle_2.player_move_down)
 game_on = True
 
 while game_on:
-    screen.update()
+    time.sleep(.13)
+    game_ball.ball_movement()
+    print(game_ball.heading())
+    if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15):
+        game_ball.ball_hit()
 
-# screen.listen()
+    screen.update()
 
 screen.update()
 

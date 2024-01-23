@@ -1,4 +1,5 @@
 from turtle import Turtle
+import random
 
 class Ball(Turtle):
 
@@ -18,3 +19,11 @@ class Ball(Turtle):
             self.setheading(180)
         elif self.heading() == 180:
             self.setheading(0)
+
+    def ball_start(self):
+        '''
+        Ball will start at an angle
+        '''
+        rand_angle = random.randint(0,360)
+        self.right(rand_angle)
+

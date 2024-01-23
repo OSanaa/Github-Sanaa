@@ -32,12 +32,15 @@ screen.onkeypress(key='Up',fun=paddle_2.player_move_up)
 screen.onkeypress(key='Down',fun=paddle_2.player_move_down)
 
 game_on = True
-
+game_ball.ball_start()
 while game_on:
-    time.sleep(.13)
+    time.sleep(.05)
+    
     game_ball.ball_movement()
-    print(game_ball.heading())
-    if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15):
+
+    # print(paddle_2.pos())
+    # for i in range(-40,40):
+    if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()+40) <15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()-40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()+40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()-40) <15):
         game_ball.ball_hit()
 
     screen.update()

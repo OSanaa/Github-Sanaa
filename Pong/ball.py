@@ -15,15 +15,24 @@ class Ball(Turtle):
         self.forward(20)
 
     def ball_hit(self):
+        
         if self.heading() == 0:
             self.setheading(180)
         elif self.heading() == 180:
             self.setheading(0)
 
-    def ball_start(self):
+    def ball_reset(self):
         '''
-        Ball will start at an angle
+        Used to determine what angle and which player the ball will go towards at the start of
+        each round
         '''
-        rand_angle = random.randint(0,360)
+        self.goto(0,0)
+        self.setheading(0)
+        start_angle_range = random.choice([(0,35),(330,350),(145,215)])
+        print(start_angle_range)
+        rand_angle = random.randint(start_angle_range[0],start_angle_range[1])
+        print(rand_angle)
         self.right(rand_angle)
+        # self.right(rand_angle)
+        self.tiltangle(90)
 

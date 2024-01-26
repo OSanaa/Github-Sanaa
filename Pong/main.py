@@ -32,14 +32,21 @@ screen.onkeypress(key='Up',fun=paddle_2.player_move_up)
 screen.onkeypress(key='Down',fun=paddle_2.player_move_down)
 
 game_on = True
-game_ball.ball_start()
+
+game_ball.ball_reset()
+# time.sleep(0.03) # Later use for when ball is hit the time decreases and ball becomes faster
 while game_on:
-    time.sleep(.05)
+    time.sleep(.06)
     
     game_ball.ball_movement()
 
     # print(paddle_2.pos())
     # for i in range(-40,40):
+    
+    ## Out of bounds
+    if (game_ball.xcor() <= -400) or (game_ball.xcor() >= 400):
+        game_ball.ball_reset() 
+
     if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()+40) <15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()-40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()+40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()-40) <15):
         game_ball.ball_hit()
 

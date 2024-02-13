@@ -10,6 +10,7 @@ Gameplay:
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from border import Border
 from score_board import ScoreBoard
 import time
 
@@ -23,6 +24,7 @@ paddle_1 = Paddle(1)
 paddle_2 = Paddle(2)
 game_ball = Ball()
 score_board = ScoreBoard()
+border = Border()
 
 screen.listen()
 screen.onkeypress(key='w',fun=paddle_1.player_move_up)
@@ -33,41 +35,35 @@ screen.onkeypress(key='Down',fun=paddle_2.player_move_down)
 
 game_on = True
 
-game_ball.ball_reset()
-# time.sleep(0.03) # Later use for when ball is hit the time decreases and ball becomes faster
+game_ball.ball_reset(game_ball.xcor())
+
+'''
+Game is on when game_on bool val is true
+'''
 while game_on:
     time.sleep(.09)
-    # print("heading: {}".format(game_ball.heading()))
     game_ball.ball_movement()
     print(game_ball.ycor())
-    # print(paddle_2.pos())
-    # for i in range(-40,40):
-    # print(game_ball.heading())
+
     ## Out of bounds
     if (game_ball.xcor() <= -400) or (game_ball.xcor() >= 400):
-        time.sleep(.02)
-        game_ball.ball_reset()
+        score_board.update_score(game_ball.xcor())
+        if (score_board.left_point == 1) or (score_board.right_point == 1):
+            score_board.game_over()
+            game_on = False
+        else:
+            game_ball.ball_reset(game_ball.xcor())
         
     ## If ball hits upper or lower bounderies
-    if (game_ball.ycor()<= -280) or (game_ball.ycor() >= 280):
-        # print(game_ball.angle)
-        # print(game_ball.ycor())
-        game_ball.ball_hit_border()
+    if game_ball.ycor() >= 280:
+        game_ball.ball_hit_y_border(True)
 
-    ## If paddle hits the ball
-    # if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()+40) <15) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()-40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()+40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()-40) <15):
-    #     game_ball.ball_hit_paddle()
+    ## If ball hits upper or lower bounderies
+    if game_ball.ycor()<= -280:
+        game_ball.ball_hit_y_border(False)
 
-    if (game_ball.distance(paddle_1) <15) or (game_ball.distance(paddle_2)<15):
-        print(game_ball.distance(paddle_1)<15)
-        print("in")
-        game_ball.ball_hit_mid_paddle()
-    elif (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()+40) <15) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()+40) <15):
-        game_ball.ball_hit_top_paddle()
-    # elif (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()-40) <15 or (paddle_2.xcor(),paddle_2.ycor()-40) <15):
-    #     game_ball.ball_hit_bot_paddle()
-        
-
+    if (game_ball.distance(paddle_1) < 35) or (game_ball.distance(paddle_2)<35) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()+50) <35) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()+50) <35) or (game_ball.distance(paddle_1.xcor(),paddle_1.ycor()-50) <35) or (game_ball.distance(paddle_2.xcor(),paddle_2.ycor()-50) <35):
+        game_ball.ball_hit_paddle()
 
     screen.update()
 

@@ -10,8 +10,8 @@ class Paddle(Turtle):
         self.setheading(90)
         self.speed("fastest")
         self.penup()
-        # self.player_num = player_num # Not sure if we need this but including it just in case
         self.player_position(player_num)
+        self.score = 0
     
     def player_position(self,player_num):
         if player_num == 1:

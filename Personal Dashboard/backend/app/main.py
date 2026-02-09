@@ -1,7 +1,7 @@
 '''
 Project Name: Personal Dashboard
 Author: Sanaa
-Date: 01/28/2025
+Date: 02/09/2025
 Description: The Personal Dashboard will allow for keeping track of finances, help out with monthly grocery needs.
     - Finance: The dashboard will prompt monthly spending recommendation as well as saving recommendations based 
     monthy income, spending habits, as well as monthly expenses.
@@ -9,6 +9,7 @@ Description: The Personal Dashboard will allow for keeping track of finances, he
     bi-weekly basis and will add to a "shopping cart" list of items that need to be bought at a certain date.
     The list will be included automatically to google calendar.
 '''
+
 
 import pandas as pd
 import sqlite3
